@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Keyboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #keyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .key {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+
+        .key:hover {
+            transform: scale(1.1);
+        }
+
+        .key:active {
+            background-color: #ccc;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 24px;
+            width: 80%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="keyboard">
+        <div class="row">
+            <button class="key">1</button>
+            <button class="key">2</button>
+            <button class="key">3</button>
+            <button class="key">4</button>
+            <button class="key">5</button>
+            <button class="key">6</button>
+            <button class="key">7</button>
+            <button class="key">8</button>
+            <button class="key">9</button>
+            <button class="key">0</button>
+        </div>
+        <div class="row">
+            <button class="key">Q</button>
+            <button class="key">W</button>
+            <button class="key">E</button>
+            <button class="key">R</button>
+            <button class="key">T</button>
+            <button class="key">Y</button>
+            <button class="key">U</button>
+            <button class="key">I</button>
+            <button class="key">O</button>
+            <button class="key">P</button>
+        </div>
+        <div class="row">
+            <button class="key">A</button>
+            <button class="key">S</button>
+            <button class="key">D</button>
+            <button class="key">F</button>
+            <button class="key">G</button>
+            <button class="key">H</button>
+            <button class="key">J</button>
+            <button class="key">K</button>
+            <button class="key">L</button>
+        </div>
+        <div class="row">
+            <button class="key">Z</button>
+            <button class="key">X</button>
+            <button class="key">C</button>
+            <button class="key">V</button>
+            <button class="key">B</button>
+            <button class="key">N</button>
+            <button class="key">M</button>
+        </div>
+        <div class="row">
+            <button class="key">Space</button>
+            <button class="key">Enter</button>
+            <button class="key">Backspace</button>
+        </div>
+    </div>
+    <div id="output"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const keys = document.querySelectorAll('.key');
+            const output = document.getElementById('output');
+
+            keys.forEach(key => {
+                key.addEventListener('click', () => {
+                    let keyValue = key.textContent.trim();
+
+                    if (keyValue === 'Space') {
+                        keyValue = ' ';
+                    } else if (keyValue === 'Enter') {
+                        keyValue = '\n';
+                    } else if (keyValue === 'Backspace') {
+                        output.textContent = output.textContent.slice(0, -1);
+                        return;
+                    }
+                    
+                    output.textContent += keyValue;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+<!-- keys add pana button add pananum -->
