@@ -1,0 +1,91 @@
+index.html:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Input Form</title>
+</head>
+<body>
+    <div>
+        <h2>Input Form</h2>
+        <form action="DisplayServlet" method="post">
+            <label for="inputData">Enter your input:</label><br>
+            <input type="text" id="inputData" name="inputData" required><br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+DisplayServlet.java:
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(name = "DisplayServlet", urlPatterns = {"/DisplayServlet"})
+public class DisplayServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        response.setContentType("text/html;charset=UTF-8");
+        
+        // Retrieve input data from request parameter
+        String inputData = request.getParameter("inputData");
+        
+        try (PrintWriter out = response.getWriter()) {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<meta charset=\"UTF-8\">");
+            out.println("<title>Display Input Data</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<div>");
+            out.println("<h2>Display Input Data</h2>");
+            out.println("<p>The input data you entered is: " + inputData + "</p>");
+            out.println("</div>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+}
+
+
+Servlet (DisplayServlet.java):
+Uses @WebServlet annotation to define the servlet (DisplayServlet) and its URL pattern (/DisplayServlet).
+Overrides the doPost method to handle HTTP POST requests.
+Retrieves the input data from the form using request.getParameter("inputData").
+Uses PrintWriter to dynamically generate HTML content (out.println(...)) to display the input data received from the form submission.
+Step 3: Configure and Run in NetBeans
+Create Project:
+
+Open NetBeans and create a new web project (Java Web > Web Application).
+Add Files:
+
+Copy index.html and DisplayServlet.java into the Web Pages/WEB-INF and Source Packages folders respectively of your project.
+Run Project:
+
+Right-click on your project in NetBeans and select "Run". This will deploy your web application to the embedded server (like Apache Tomcat) and open it in your default web browser.
+Testing:
+
+Access index.html from your browser (http://localhost:8080/YourProjectName/index.html).
+Enter some data in the input field and click "Submit".
+You should be redirected to the servlet (DisplayServlet), where the input data you entered will be displayed.
+Notes:
+Servlet Mapping: Ensure that the servlet (DisplayServlet) is correctly mapped in the @WebServlet annotation and matches the action attribute of the form in index.html.
+
+Form Submission: When the form in index.html is submitted (<form action="DisplayServlet" method="post">), the input data is sent to DisplayServlet using HTTP POST method.
+
+Dynamic HTML Generation: Servlets generate HTML dynamically using Java code (PrintWriter), allowing for dynamic content generation and interaction based on user input.
+
+This setup demonstrates a basic interaction between an HTML form and a servlet in a Java web application using NetBeans. Adjustments can be made to enhance functionality, handle more complex data processing, and integrate with databases or other services as needed.

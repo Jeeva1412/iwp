@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Current Date JSP</title>
+</head>
+<body>
+    <%
+        // Import Java classes for date handling
+        java.util.Date currentDate = new java.util.Date();
+        java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+        // Format the date
+        String formattedDate = dateFormat.format(currentDate);
+    %>
+
+    <h2>Current Date</h2>
+    <p>Today's date is: <%= formattedDate %></p>
+</body>
+</html>

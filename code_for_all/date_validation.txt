@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <label for="dateInput">Enter a date (YYYY-MM-DD):</label><br>
+        <input type="text" id="dateInput" placeholder="YYYY-MM-DD"><br>
+        <button onclick="validateDate()">Validate Date</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+      function validateDate() {
+        var inputDate = document.getElementById("dateInput").value;
+        var pattern = /^\d{4}-\d{2}-\d{2}$/;
+    
+        if (!pattern.test(inputDate)) {
+            document.getElementById("result").textContent = "Invalid date format. Please enter date in YYYY-MM-DD format.";
+            return;
+        }
+    
+        var parts = inputDate.split("-");
+        var year = parseInt(parts[0], 10);
+        var month = parseInt(parts[1], 10);
+        var day = parseInt(parts[2], 10);
+    
+        if (isNaN(year) || isNaN(month) || isNaN(day)) {
+            document.getElementById("result").textContent = "Invalid date.";
+            return;
+        }
+    
+        // Check if month and day are within valid ranges
+        if (month < 1 || month > 12 || day < 1 || day > 31) {
+            document.getElementById("result").textContent = "Invalid date. Month or day is out of range.";
+            return;
+        }
+    
+        // Check for specific month-day combinations that are invalid
+        if (month == 2 && day > 29) {
+            document.getElementById("result").textContent = "Invalid date. February cannot have more than 29 days.";
+            return;
+        }
+        if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) {
+            document.getElementById("result").textContent = "Invalid date. This month cannot have more than 30 days.";
+            return;
+        }
+    
+        // Check for leap year
+        if (month == 2 && day == 29) {
+            if (!((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))) {
+                document.getElementById("result").textContent = "Invalid date. February 29 is only valid in leap years.";
+                return;
+            }
+        }
+    
+        document.getElementById("result").textContent = "Valid date!";
+    }
+    
+    </script>
+</body>
+</html>
+
